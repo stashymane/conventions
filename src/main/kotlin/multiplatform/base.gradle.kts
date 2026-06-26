@@ -1,12 +1,9 @@
 package multiplatform
 
 import getIntVersionOrThrow
-import getOrThrow
 import getVersionCatalog
-import getVersionOrThrow
 import moduleName
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
-import toIntOrElseThrow
 
 configure<BasePluginExtension> {
     archivesName.convention(provider(project::moduleName))

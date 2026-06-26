@@ -10,4 +10,5 @@ internal fun Project.projectIdentifier(): String =
         .filter(String::isNotEmpty)
         .joinToString(".")
 
-internal fun String.toIntOrElseThrow(orElse: (String) -> Exception) = toIntOrNull() ?: throw orElse(this)
+internal fun String.toIntOrElseThrow(orElse: (String) -> Exception) =
+    toIntOrNull() ?: throw orElse(this)

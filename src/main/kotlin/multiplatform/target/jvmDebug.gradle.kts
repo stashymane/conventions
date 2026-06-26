@@ -10,9 +10,8 @@ plugins {
 configure<KotlinMultiplatformExtension> {
     jvm {
         compilations {
-            val main = getByName("main")
-            val debug = register("debug") {
-                associateWith(main)
+            create("debug") {
+                associateWith(getByName("main"))
             }
         }
     }

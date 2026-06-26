@@ -13,3 +13,8 @@ tasks.withType<KotlinCompilationTask<*>>().configureEach {
     if (name != "kspCommonMainKotlinMetadata")
         dependsOn("kspCommonMainKotlinMetadata")
 }
+
+// workaround for AGP being cancer
+tasks.matching { it.name == "extractAndroidMainAnnotations" }.configureEach {
+    dependsOn("kspCommonMainKotlinMetadata")
+}
