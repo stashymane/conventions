@@ -3,7 +3,6 @@ package multiplatform.target
 import com.android.build.api.dsl.KotlinMultiplatformAndroidLibraryTarget
 import getIntVersionOrThrow
 import getVersionCatalog
-import getVersionOrThrow
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 
@@ -23,8 +22,10 @@ configure<KotlinMultiplatformExtension> {
         withJava()
 
         compilerOptions {
-            val jvmVersion = libs.getVersionOrThrow("jvm").requiredVersion
-            jvmTarget = JvmTarget.fromTarget(jvmVersion)
+            val jvmVersion = libs.getIntVersionOrThrow("jvm").toString()
+            val targetVersion = libs.findVersion("jvm-target").orElse(null)?.requiredVersion
+
+            jvmTarget = JvmTarget.fromTarget(targetVersion ?: jvmVersion)
         }
     }
 }
