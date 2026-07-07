@@ -1,5 +1,7 @@
 package multiplatform.target
 
+import applyJvmVersions
+import getVersionCatalog
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 
 plugins {
@@ -7,5 +9,7 @@ plugins {
 }
 
 configure<KotlinMultiplatformExtension> {
-    jvm("desktop")
+    jvm("desktop") {
+        applyJvmVersions(getVersionCatalog("libs"))
+    }
 }
