@@ -22,7 +22,7 @@ abstract class InjectPreloads : DefaultTask() {
             dir.listFiles()?.forEach {
                 when (it.extension) {
                     "wasm" -> appendLine("""<link rel="preload" href="${it.name}" as="fetch" crossorigin>""")
-                    "js" -> appendLine("""<link rel="preload" href="${it.name}" as="script">""")
+//                    "js" -> appendLine("""<link rel="preload" href="${it.name}" as="script">""")
                     "mjs" -> appendLine("""<link rel="modulepreload" href="${it.name}">""")
                 }
             }

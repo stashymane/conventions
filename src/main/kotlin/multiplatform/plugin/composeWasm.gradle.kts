@@ -2,9 +2,15 @@ package multiplatform.plugin
 
 import tasks.InjectPreloads
 
-tasks.withType<Sync>().named {
-    it.endsWith("browserDistribution", true)
-            || it.endsWith("browserDevelopmentExecutableDistribution", true)
+private val taskNames = listOf(
+    "browserDistribution",
+    "browserProductionRun",
+    "browserDevelopmentExecutableDistribution",
+    "browserDevelopmentRun"
+)
+
+tasks.withType<Sync>().named { taskName ->
+    taskNames.any { taskName.endsWith(it, true) }
 }.whenTaskAdded {
     val injectTask = tasks.register<InjectPreloads>("${name}InjectPreloads") {
         description = "Inject preload tags into ${this@whenTaskAdded.name}"
