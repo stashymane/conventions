@@ -1,7 +1,7 @@
 [versions]
-kotlin = "2.4.20-Beta1"
+kotlin = "2.4.20"
 agp = "9.2.1"
-compose = "1.11.1"
+compose = "1.12.0"
 
 [libraries]
 kmp = { module = "org.jetbrains.kotlin.multiplatform:org.jetbrains.kotlin.multiplatform.gradle.plugin", version.ref = "kotlin" }
