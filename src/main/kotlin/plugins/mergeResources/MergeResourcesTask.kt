@@ -1,4 +1,4 @@
-package tasks.resources
+package plugins.mergeResources
 
 import org.gradle.api.Action
 import org.gradle.api.DefaultTask

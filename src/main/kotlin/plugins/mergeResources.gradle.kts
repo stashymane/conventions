@@ -1,6 +1,5 @@
 package plugins
 
-import org.gradle.kotlin.dsl.create
-import tasks.resources.MergeResourcesExtension
+import plugins.mergeResources.MergeResourcesExtension
 
 extensions.create<MergeResourcesExtension>("mergeResources")

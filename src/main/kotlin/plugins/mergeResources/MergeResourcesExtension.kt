@@ -1,4 +1,4 @@
-package tasks.resources
+package plugins.mergeResources
 
 import org.gradle.api.Action
 import org.gradle.api.file.ProjectLayout
@@ -13,9 +13,8 @@ abstract class MergeResourcesExtension @Inject constructor(
     operator fun invoke(
         name: String,
         configure: Action<in MergeResourcesTask> = Action { },
-    ): TaskProvider<MergeResourcesTask> =
-        tasks.register(name, MergeResourcesTask::class.java) {
-            destinationDir.convention(layout.buildDirectory.dir("mergedResources"))
-            configure.execute(this)
-        }
+    ): TaskProvider<MergeResourcesTask> = tasks.register(name, MergeResourcesTask::class.java) {
+        destinationDir.convention(layout.buildDirectory.dir("mergedResources"))
+        configure.execute(this)
+    }
 }
