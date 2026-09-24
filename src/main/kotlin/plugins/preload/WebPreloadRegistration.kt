@@ -41,30 +41,32 @@ private fun Project.registerProcessResourcesInject(
     compilation: KotlinJsIrCompilation,
     binary: Executable,
 ): TaskProvider<InjectPreloads> {
-    val injectName = "${target.targetName}ProcessResourcesInjectPreloads"
-    val created = !tasks.names.contains(injectName)
+    val binaryLabel = binary.name.replaceFirstChar(Char::uppercaseChar)
+    val injectName = "${target.targetName}${binaryLabel}ProcessResourcesInjectPreloads"
     val processResources = tasks.named(compilation.processResourcesTaskName)
+
+    val webpackModeToken = binary.executeTaskBaseName
 
     val injectTask = injectPreloads(
         name = injectName,
         description =
-            "Inject preload/prefetch tags into ${target.targetName} processed resources " +
-                "(webpack run / dev server)",
+            "Inject preload/prefetch tags into ${target.targetName} ${binary.name} " +
+                    "processed resources (webpack run / dev server)",
         extension = extension,
         indexTemplate = indexHtmlForCompilation(compilation),
-        outputIndex = layout.dir(provider { compilation.output.resourcesDir }).indexHtml(),
+        outputIndex = layout.buildDirectory.file(
+            "preload/${target.targetName}/${binary.name}/index.html",
+        ),
     ) {
         dependsOn(processResources)
     }
 
-    if (created) {
-        processResources.configure { finalizedBy(injectTask) }
-        tasks.withType(KotlinWebpack::class.java).configureEach {
-            if (this.compilation.target.targetName == target.targetName &&
-                this.compilation.name == compilation.name
-            ) {
-                dependsOn(injectTask)
-            }
+    tasks.withType(KotlinWebpack::class.java).configureEach {
+        if (this.compilation.target.targetName == target.targetName &&
+            this.compilation.name == compilation.name &&
+            name.contains(webpackModeToken, ignoreCase = true)
+        ) {
+            dependsOn(injectTask)
         }
     }
 
