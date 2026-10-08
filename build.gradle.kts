@@ -4,6 +4,7 @@ plugins {
 
 dependencies {
     compileOnly(buildLibs.kmp)
+    compileOnly(buildLibs.android.application)
     compileOnly(buildLibs.android.library)
     compileOnly(buildLibs.compose)
 }

@@ -5,5 +5,6 @@ compose = "1.12.0"
 
 [libraries]
 kmp = { module = "org.jetbrains.kotlin.multiplatform:org.jetbrains.kotlin.multiplatform.gradle.plugin", version.ref = "kotlin" }
+android-application = { module = "com.android.application:com.android.application.gradle.plugin", version.ref = "agp" }
 android-library = { module = "com.android.kotlin.multiplatform.library:com.android.kotlin.multiplatform.library.gradle.plugin", version.ref = "agp" }
 compose = { module = "org.jetbrains.compose:compose-gradle-plugin", version.ref = "compose" }
