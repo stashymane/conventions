@@ -1,6 +1,8 @@
 package multiplatform.target
 
+import applyFrom
 import com.android.build.api.dsl.KotlinMultiplatformAndroidLibraryTarget
+import getAndroidSdkVersion
 import getIntVersionOrThrow
 import getVersionCatalog
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
@@ -16,7 +18,9 @@ configure<KotlinMultiplatformExtension> {
         val androidLibs = getVersionCatalog("androidLibs")
 
         namespace = project.group.toString()
-        compileSdk = androidLibs.getIntVersionOrThrow("compileSdk")
+        compileSdk {
+            applyFrom(androidLibs.getAndroidSdkVersion("compileSdk"))
+        }
         minSdk = androidLibs.getIntVersionOrThrow("minSdk")
 
         withJava()

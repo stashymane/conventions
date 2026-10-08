@@ -15,6 +15,6 @@ internal fun VersionCatalog.getVersionOrThrow(alias: String): VersionConstraint 
     findVersion(alias).orElseThrow { IllegalArgumentException("\"$alias\" version was not found in catalog") }
 
 internal fun VersionCatalog.getIntVersionOrThrow(alias: String): Int =
-    getVersionOrThrow(alias).requiredVersion.toIntOrElseThrow {
+    getVersionOrThrow(alias).requiredVersion.toIntOrThrow {
         IllegalArgumentException("Failed to parse version \"$alias\" of \"$it\" as integer")
     }
