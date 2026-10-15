@@ -5,6 +5,9 @@ import getVersionCatalog
 import moduleName
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 
+providers.gradleProperty("group").orNull?.let { group = it }
+providers.gradleProperty("version").orNull?.let { version = it }
+
 configure<BasePluginExtension> {
     archivesName.convention(provider(project::moduleName))
 }
