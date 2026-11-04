@@ -1,0 +1,18 @@
+/*
+ * Dokka marks every JVM-based source set as "jvm-like", which renders its tag
+ * green and uppercase. Show the Android source set in Android green while
+ * leaving the actual JVM source set styled by Dokka.
+ */
+.platform-tag.jvm-like[data-filter$="/androidMain"],
+.platform-selector-option.jvm-like:has(input[data-filter$="/androidMain"]) {
+    text-transform: capitalize;
+}
+
+.filter-section .platform-tag.jvm-like[data-active][data-filter$="/androidMain"] {
+    --platform-tag-color: #3ddc84;
+}
+
+[data-filterable-set*="/androidMain"] .platform-tags .platform-tag.jvm-like:first-child {
+    --platform-tag-color: #3ddc84;
+    text-transform: capitalize;
+}
