@@ -5,8 +5,10 @@ package plugins
 import org.jetbrains.dokka.gradle.DokkaExtension
 import org.jetbrains.dokka.gradle.engine.plugins.DokkaHtmlPluginParameters
 import org.jetbrains.dokka.gradle.internal.InternalDokkaGradlePluginApi
-import plugins.dokka.DokkaStylesheetTask
+import plugins.dokka.DokkaAssetsTask
 import plugins.dokka.ReadmeModuleDocsTask
+
+private val sourceSetIcons = listOf("android", "js", "jvm", "wasm-js", "wasm-wasi", "web")
 
 plugins {
     id("org.jetbrains.dokka")
@@ -18,8 +20,10 @@ val moduleDocs = tasks.register("dokkaReadmeModuleDocs", ReadmeModuleDocsTask::c
     outputFile.set(layout.buildDirectory.file("dokka/module-documentation.md"))
 }
 
-val stylesheet = tasks.register("dokkaStylesheet", DokkaStylesheetTask::class.java) {
-    outputFile.set(layout.buildDirectory.file("dokka/dokka.css"))
+val assetsDir = layout.buildDirectory.dir("dokka/assets")
+val assets = tasks.register("dokkaAssets", DokkaAssetsTask::class.java) {
+    stylesheet.set(assetsDir.map { it.file("dokka.css") })
+    icons.from(sourceSetIcons.map { name -> assetsDir.map { it.file("images/source-set-$name.svg") } })
 }
 
 extensions.configure<DokkaExtension> {
@@ -28,6 +32,7 @@ extensions.configure<DokkaExtension> {
     }
 
     pluginsConfiguration.named<DokkaHtmlPluginParameters>("html") {
-        customStyleSheets.from(stylesheet.flatMap(DokkaStylesheetTask::outputFile))
+        customStyleSheets.from(assets.flatMap(DokkaAssetsTask::stylesheet))
+        customAssets.from(assets.map(DokkaAssetsTask::icons))
     }
 }

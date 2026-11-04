@@ -16,3 +16,69 @@
     --platform-tag-color: #3ddc84;
     text-transform: capitalize;
 }
+
+.platform-selector:is(
+    [data-filter$="/androidMain"],
+    [data-filter$="/jsMain"],
+    [data-filter$="/jvmMain"],
+    [data-filter$="/wasmJsMain"],
+    [data-filter$="/wasmWasiMain"],
+    [data-filter$="/webMain"]
+)::before,
+.platform-selector-option:is(
+    :has(input[data-filter$="/androidMain"]),
+    :has(input[data-filter$="/jsMain"]),
+    :has(input[data-filter$="/jvmMain"]),
+    :has(input[data-filter$="/wasmJsMain"]),
+    :has(input[data-filter$="/wasmWasiMain"]),
+    :has(input[data-filter$="/webMain"])
+)::after {
+    content: "";
+    display: inline-block;
+    flex: none;
+    width: 1lh;
+    height: 1lh;
+    background-color: currentColor;
+}
+
+.platform-selector {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35em;
+}
+
+.platform-selector[data-filter$="/androidMain"]::before,
+.platform-selector-option:has(input[data-filter$="/androidMain"])::after {
+    -webkit-mask: url("../images/source-set-android.svg") center / contain no-repeat;
+    mask: url("../images/source-set-android.svg") center / contain no-repeat;
+}
+
+.platform-selector[data-filter$="/jsMain"]::before,
+.platform-selector-option:has(input[data-filter$="/jsMain"])::after {
+    -webkit-mask: url("../images/source-set-js.svg") center / contain no-repeat;
+    mask: url("../images/source-set-js.svg") center / contain no-repeat;
+}
+
+.platform-selector[data-filter$="/jvmMain"]::before,
+.platform-selector-option:has(input[data-filter$="/jvmMain"])::after {
+    -webkit-mask: url("../images/source-set-jvm.svg") center / contain no-repeat;
+    mask: url("../images/source-set-jvm.svg") center / contain no-repeat;
+}
+
+.platform-selector[data-filter$="/wasmJsMain"]::before,
+.platform-selector-option:has(input[data-filter$="/wasmJsMain"])::after {
+    -webkit-mask: url("../images/source-set-wasm-js.svg") center / contain no-repeat;
+    mask: url("../images/source-set-wasm-js.svg") center / contain no-repeat;
+}
+
+.platform-selector[data-filter$="/wasmWasiMain"]::before,
+.platform-selector-option:has(input[data-filter$="/wasmWasiMain"])::after {
+    -webkit-mask: url("../images/source-set-wasm-wasi.svg") center / contain no-repeat;
+    mask: url("../images/source-set-wasm-wasi.svg") center / contain no-repeat;
+}
+
+.platform-selector[data-filter$="/webMain"]::before,
+.platform-selector-option:has(input[data-filter$="/webMain"])::after {
+    -webkit-mask: url("../images/source-set-web.svg") center / contain no-repeat;
+    mask: url("../images/source-set-web.svg") center / contain no-repeat;
+}
