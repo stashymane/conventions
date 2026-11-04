@@ -7,5 +7,6 @@ dependencies {
     compileOnly(buildLibs.android.application)
     compileOnly(buildLibs.android.library)
     compileOnly(buildLibs.compose)
+    compileOnly(buildLibs.dokka)
     compileOnly(buildLibs.maven.publish)
 }

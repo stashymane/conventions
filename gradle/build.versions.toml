@@ -2,6 +2,7 @@
 kotlin = "2.4.20"
 agp = "9.2.1"
 compose = "1.12.0"
+dokka = "2.2.0"
 mavenPublish = "0.37.0"
 
 [libraries]
@@ -9,4 +10,5 @@ kmp = { module = "org.jetbrains.kotlin.multiplatform:org.jetbrains.kotlin.multip
 android-application = { module = "com.android.application:com.android.application.gradle.plugin", version.ref = "agp" }
 android-library = { module = "com.android.kotlin.multiplatform.library:com.android.kotlin.multiplatform.library.gradle.plugin", version.ref = "agp" }
 compose = { module = "org.jetbrains.compose:compose-gradle-plugin", version.ref = "compose" }
+dokka = { module = "org.jetbrains.dokka:dokka-gradle-plugin", version.ref = "dokka" }
 maven-publish = { module = "com.vanniktech:gradle-maven-publish-plugin", version.ref = "mavenPublish" }
