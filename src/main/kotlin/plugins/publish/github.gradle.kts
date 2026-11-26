@@ -1,7 +1,5 @@
 package plugins.publish
 
-import org.gradle.api.credentials.PasswordCredentials
-
 plugins {
     id("plugins.publish")
 }
@@ -25,7 +23,6 @@ pluginManager.withPlugin("com.vanniktech.maven.publish") {
                     username = providers.githubUsername().get()
                     password = providers.githubPassword().get()
                 }
-                credentials(PasswordCredentials::class)
             }
         }
     }
