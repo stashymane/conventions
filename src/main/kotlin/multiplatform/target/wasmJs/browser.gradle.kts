@@ -2,11 +2,11 @@
 
 package multiplatform.target.wasmJs
 
-import multiplatform.target.util.localBrowserTestLocations
+import multiplatform.target.util.TestBrowser
 import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 
-val browserLocations = localBrowserTestLocations()
+val browserLocations = TestBrowser.getLocations(rootProject)
 
 plugins {
     id("multiplatform.target.wasmJs.common")
@@ -19,9 +19,9 @@ configure<KotlinMultiplatformExtension> {
                 useKarma {
                     useChromiumHeadless()
                 }
-                
-                browserLocations.get().forEach { (envVariable, location) ->
-                    environment(envVariable, location)
+
+                browserLocations.forEach { (browser, location) ->
+                    location.orNull?.let { environment(browser.envName, it) }
                 }
             }
         }

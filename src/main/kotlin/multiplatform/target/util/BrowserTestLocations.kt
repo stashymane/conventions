@@ -4,15 +4,24 @@ import localProperties
 import org.gradle.api.Project
 import org.gradle.api.provider.Provider
 
-private val browserTestEnvVariables = mapOf(
-    "chromium" to "CHROMIUM_BIN",
-    "chrome" to "CHROME_BIN",
-    "firefox" to "FIREFOX_BIN",
-)
+@JvmInline
+value class TestBrowser(val name: String) {
+    val propertyName: String get() = "test.browser.${name.lowercase()}"
+    val envName: String get() = "${name.uppercase()}_BIN"
 
-internal fun Project.localBrowserTestLocations(): Provider<Map<String, String>> =
-    localProperties.map { props ->
-        browserTestEnvVariables.mapNotNull { (browser, envVariable) ->
-            props.getProperty("test.browser.$browser")?.let { envVariable to it }
-        }.toMap()
+    fun location(project: Project): Provider<String> =
+        project.localProperties.map { it.getProperty(propertyName) }
+            .orElse(project.providers.environmentVariable(envName))
+
+    companion object {
+        val All = listOf(
+            TestBrowser("chromium"),
+            TestBrowser("chrome"),
+            TestBrowser("firefox"),
+        )
+
+        fun getLocations(project: Project) = All.associateWith { browser ->
+            browser.location(project)
+        }
     }
+}
